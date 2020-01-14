@@ -1,5 +1,5 @@
 \chapter{Developer's Section}%
-\label{cha:Developer's_Section}
+\label{cha:developer_section}
 
 \section{How Builds Really Work and Even More Options}
 \label{sec:How Builds Really Work and Even More Options}
@@ -20,28 +20,28 @@ So, an example of what happens in 4 steps for a single-user build would be as fo
 \smallskip
 
 \begin{enumerate}[nosep]
-	\item unpack/patch source code\newline
-	git clone --depth 1 ``git:/{\dots}/target'' cinelerra5\newline
+	\item unpack/patch source code:\newline
+	git clone -{}-depth 1 ``git:/{\dots}/target'' cinelerra5\newline
 	./autogen.sh
-	\item configure build\newline
-	./configure --with-single-user
-	\item make build targets\newline
-	make 2{\textgreater}\&1 {\textbar} tee log
-	\item installation\newline
+	\item configure build:\newline
+	./configure -{}-with-single-user
+	\item make build targets:\newline
+	make 2>\&1 {\textbar} tee log
+	\item installation:\newline
 	make install
 \end{enumerate}
 \medskip
 
-A lot of things can be tweaked to change the results. \ Mostly these changes are parameters to the configure step, which can change important build related items, like the application name, or where and what the target system directories should be. \ This makes it possible to have several versions at the same time on the same computer if needed. \ To see what it is that the makefiles use to build Cinelerra, look at the resulting top-level global\_config file which is created by the ./configure step.
+A lot of things can be tweaked to change the results. Mostly these changes are parameters to the configure step, which can change important build related items, like the application name, or where and what the target system directories should be. This makes it possible to have several versions at the same time on the same computer if needed. To see what it is that the makefiles use to build Cinelerra, look at the resulting top-level global\_config file which is created by the ./configure step.
 \medskip
 
-Building Cinelerra requires many thirdparty libraries, and it is recommended that you use the static build version included in the git repo. \ Some of them are patched, and fix significant bugs. \ It is important to note that because system installation historically has been with as many shared objects as possible, the defaults are that any system library detected during configuration setup will be used, whe\begin{lstlisting}[numbers=none]n the package is built ``-{}-without-single-user'', which is the default build. \ To build with static thirdparty libraries for system install to the system /usr area, use:
+Building Cinelerra requires many thirdparty libraries, and it is recommended that you use the static build version included in the git repo. Some of them are patched, and fix significant bugs. It is important to note that because system installation historically has been with as many shared objects as possible, the defaults are that any system library detected during configuration setup will be used, when the package is built ``-{}-without-single-user'', which is the default build. To build with static thirdparty libraries for system install to the system /usr area, use:
 \smallskip
 
 \hspace{2em}.configure -{}-enable-static-build --prefix=/usr
 \medskip
 
-Sometimes, additional package parameters and variables are needed during thirdparty builds. \ These optional values occur before and after the ``configure'' and ``make'' commands during a build. \ A presentation of the format of the package qualified variable names and how they appear in the build procedure are:
+Sometimes, additional package parameters and variables are needed during thirdparty builds. These optional values occur before and after the ``configure'' and ``make'' commands during a build. A presentation of the format of the package qualified variable names and how they appear in the build procedure are:
 \medskip
 
 \hspace{2em}
@@ -63,7 +63,7 @@ These steps are done for EACH of the packages in the thirdparty build:
 \hspace{2em}{\textless}pkg.mak\_vars{\textgreater} make {\textless}pkg.mak\_params{\textgreater}
 \bigskip
 
-The thirdparty Makefile has a set of default vars and params used to build each of the needed thirdparty packages, but you can specify new or overriding values for these Makefile substitutions. \ These thirdparty build config changes are specified in the top-level file: cin\_config. \ By using this file, you can save the configuration changes made for the current build to use the next time you do a new build. \ For example, to add an include file path to the giflib build, add this line to cin\_config:
+The thirdparty Makefile has a set of default vars and params used to build each of the needed thirdparty packages, but you can specify new or overriding values for these Makefile substitutions. These thirdparty build config changes are specified in the top-level file: cin\_config. By using this file, you can save the configuration changes made for the current build to use the next time you do a new build. For example, to add an include file path to the giflib build, add this line to cin\_config:
 \medskip
 
 \hspace{2em}giflib.cflags := -I/usr/local/include/giflib5
@@ -98,7 +98,7 @@ A few of the more useful ./configure -{}-parameters are:
 
 \medskip
 
-The ./configure command builds ``global\_config''. \ The global\_config is read by the thirdparty/Makefile to create the recipes and definitions used by the thirdparty build.
+The ./configure command builds ``global\_config''. The global\_config is read by the thirdparty/Makefile to create the recipes and definitions used by the thirdparty build.
 \medskip
 
 There are a lot of different options.  Thirdparty library build control is available in the configure step of the build.  Thirdparty libraries are built on a demand basis.  So if you use:
@@ -117,12 +117,12 @@ FFmpeg is a ``strongly connected component''in the build linkage and widely infl
 \begin{itemize}[label={},nosep]
 	\item make clean
 	\item autogen.sh
-	\item export FFMPEG\_EXTRA\_CFG={\textquotedbl} -{}-disable-vdpau{\textquotedbl} 
+	\item export FFMPEG\_EXTRA\_CFG="-{}-disable-vdpau" 
 	\item ./configure {\dots}
 \end{itemize}
 \medskip
 
-Specific information on using the current ffmpeg GIT repository follows.  You have to supply the actual URL location of the ffmpeg git as you can see in this example ?bld.sh? script:
+Specific information on using the current ffmpeg GIT repository follows.  You have to supply the actual URL location of the ffmpeg git as you can see in this example "bld.sh" script:
 \medskip
 
 \begin{lstlisting}[numbers=none]
@@ -134,7 +134,7 @@ mv Makefile Makefile.cfg
 cp Makefile.devel Makefile
 \end{lstlisting}
 
-Since the procedure for obtaining the latest ffmpeg version is not always kept up-to-date and the line numbers will always change, you may have to create that patch first. \ Generally those line numbers are only updated by a developer when a new stable version with worthwhile features is actually included in the Cinelerra build. FFmpeg is constantly changing and many times the git version is not as stable as desired.
+Since the procedure for obtaining the latest ffmpeg version is not always kept up-to-date and the line numbers will always change, you may have to create that patch first. Generally those line numbers are only updated by a developer when a new stable version with worthwhile features is actually included in the Cinelerra build. FFmpeg is constantly changing and many times the git version is not as stable as desired.
 
 \section{Configuration Features}
 \label{sec:Configuration Features}
@@ -354,10 +354,10 @@ The rule targets create the set of thirdparty packages which are built from loca
 \section{Find Lock Problems with Booby Trap}
 \label{sec:Find Lock Problems with Booby Trap}
 
-A Booby Trap is used in CinGG for setting a trap to catch lock problems that might have been missed. \ It will trap boobies only if compile by adding ``-{}-with-booby'' on the configuration command line. \ \ This is the default if you compile using ./bld.sh from the GIT repository. \ It should not interfere with normal execution.
+A Booby Trap is used in CinGG for setting a trap to catch lock problems that might have been missed. It will trap boobies only if compile by adding ``-{}-with-booby'' on the configuration command line. This is the default if you compile using ./bld.sh from the GIT repository. It should not interfere with normal execution.
 \medskip
 
-If you have the time and inclination, enable -{}-with-booby and send any trap output that you find. \ Maybe you will catch some boobies and if you do, send a snapshot of any boobies you find.
+If you have the time and inclination, enable -{}-with-booby and send any trap output that you find. Maybe you will catch some boobies and if you do, send a snapshot of any boobies you find.
 \medskip
 
 There are 2 potential traps:
@@ -436,7 +436,7 @@ Now your Cinelerra obj has all of the debug stuff. Next run valgrind as root for
 This runs Cinelerra under the control of valgrind, and produces a log file in /tmp which will list information about any leaks, usually clearly identifiable. \ Be sure to Quit out of Cinelerra normally instead of Ctrl-C or a SEGV otherwise the program does not have a chance to cleanup and there will be some false alarms. But it runs very slowly, and is basically single threaded, which means that race conditions may be impossible to catch... like one thread deletes memory that another thread is currently using. But overall it is a big help and if you test any new features, please email the log output. \ A lot of effort when writing the code was put into trying to be sure that all of the object constructors have matching destructors so that the leaks can be identified. There are already several libraries that create predictable memory leaks and valgrind does a good job for most of these.
 \medskip
 
-It is impossible to test everything with valgrind because some things are just too big and slow for a practical test. \ Occasionally you can find a leak or an illegal memory access. There are several false alarms that are difficult to avoid {\textquotedbl}Conditional jump{\textquotedbl} messages, and {\textquotedbl}unhandled DW\_OP\_{\textquotedbl}, but anything with the word {\textquotedbl}illegal{\textquotedbl} in the message is important. Memory leaks that originate in Cinelerra are good to find and fix, but are usually not deadly.
+It is impossible to test everything with valgrind because some things are just too big and slow for a practical test. \ Occasionally you can find a leak or an illegal memory access. There are several false alarms that are difficult to avoid "Conditional jump" messages, and "unhandled DW\_OP\_", but anything with the word "illegal" in the message is important. Memory leaks that originate in Cinelerra are good to find and fix, but are usually not deadly.
 
 \section{CFLAGS has -Wall}
 \label{sec:CFLAGS has -Wall}
@@ -445,10 +445,10 @@ When compiling Cinelerra-GG Infinity a CFLAGS option used is "Wall" where the "W
 \section{Prof2 -- A Profiler}
 \label{sec:Prof2 -- A Profiler}
 
-Frequently there is a problem with a program running slow and you do not know why. \ You need a thumbnail analysis of where the program is spending most of its time without all of the overwhelming details. \ This is when a Profiler comes in handy.
+Frequently there is a problem with a program running slow and you do not know why. You need a thumbnail analysis of where the program is spending most of its time without all of the overwhelming details. This is when a Profiler comes in handy.
 \medskip
 
-There are many different profilers available -- this particular one does not do anything special and is fairly ordinary in that it just characterizes frequency of execution of various regions in the program. \ However, it has some pretty good strengths as listed next.
+There are many different profilers available -- this particular one does not do anything special and is fairly ordinary in that it just characterizes frequency of execution of various regions in the program. However, it has some pretty good strengths as listed next.
 \medskip
 \begin{enumerate}[nosep]
 	\item It takes very little or no preconditioning, i.e. setup
@@ -459,22 +459,24 @@ There are many different profilers available -- this particular one does not do 
 \end{enumerate}
 \subsection{Setup}
 
-This profiler works on x86\_64 systems and you must be root to compile and run it. \ Also, you must install your operating system's ``iberty'' -- for example, which would be binutils-devel for Fedora or libiberty-dev for Ubuntu 18.
+This profiler works on x86\_64 systems and you must be root to compile and run it. Also, you must install your operating system's ``iberty'' -- for example, which would be binutils-devel for Fedora or libiberty-dev for Ubuntu 18.
 \medskip
 
 Go to the top level Cinelerra directory.
 
-Key in: \ \ \ \ cd prof2
+Key in: \qquad cd prof2
 
-Key in: \ \ \ \ make clean all install
+Key in: \qquad make clean all install
 
-Later, if you wanttitle to remove this from the system, key in: \ \ \ \ make uninstall
+Later, if you want title to remove this from the system,
+
+key in: \qquad make uninstall
 \subsection{How to use}
 
 The program you are profiling should be compiled debuggable with stack frame and symbols enabled.
 \medskip
 
-To see help, key in: \ \ prof -h
+To see help, key in: \quad prof -h
 \smallskip
 
 usage: -h [-o path] [-d] [-e] [-p libpath] [-012] [-u \#] cmd args...
@@ -492,19 +494,19 @@ usage: -h [-o path] [-d] [-e] [-p libpath] [-012] [-u \#] cmd args...
 \end{tabular}
 \medskip
 
-To execute the profiler, key in: \ \ 
+To execute the profiler, key in: 
 \medskip
 
 \hspace{2em}prof -o /tmp/prof\_list.txt ./cin
 \medskip
 
-where /tmp/prof\_list.txt is the output file and in this case ``cin'' is the Cinelerra binary file. \ The pid of this command will be displayed on the startup window. \ This comes in handy in the use case where there is a lot of initial load and possible configuration setup inside of Cinelerra and you want to profile plugins and not necessarily all of the setup steps. \ Then you can use the following command in another window to continue running Cinelerra and obtain the more useful information:
+where /tmp/prof\_list.txt is the output file and in this case ``cin'' is the Cinelerra binary file. The pid of this command will be displayed on the startup window. This comes in handy in the use case where there is a lot of initial load and possible configuration setup inside of Cinelerra and you want to profile plugins and not necessarily all of the setup steps. Then you can use the following command in another window to continue running Cinelerra and obtain the more useful information:
 \medskip
 
 \hspace{2em}kill -USR1 pid
 \medskip
 
-Running this command refreshes the memory maps used for profiling. \ When you are profiling a plugin, you want to run this AFTER the plugin loads.
+Running this command refreshes the memory maps used for profiling. When you are profiling a plugin, you want to run this AFTER the plugin loads.
 \medskip
 
 \subsection{Results}
@@ -513,9 +515,9 @@ There are 3 sections in the resulting output file of this stochastic quick analy
 \medskip
 
 \begin{enumerate}[nosep]
-	\item The first section is a histogram of the timer intervals of that sample set. \ Each function occupies a region of addresses. \ One hundred times a second, the profiler samples the program address in the region of execution.
-	\item In the second section, there is another histogram of the cumulative frequency of all things in the call stack and this should point out who is the culprit. \ For example, a codec calls a bunch of subroutines, the cost of the subroutines is accumulated to the codec parent caller. \ This makes the actual cpu user much more apparent.
-	\item The last section is for the library spaces. \ Each library occupies a region and the profiler adds up the time spent in each of the libraries by frequency.
+	\item The first section is a histogram of the timer intervals of that sample set. Each function occupies a region of addresses. One hundred times a second, the profiler samples the program address in the region of execution.
+	\item In the second section, there is another histogram of the cumulative frequency of all things in the call stack and this should point out who is the culprit. For example, a codec calls a bunch of subroutines, the cost of the subroutines is accumulated to the codec parent caller. This makes the actual cpu user much more apparent.
+	\item The last section is for the library spaces. Each library occupies a region and the profiler adds up the time spent in each of the libraries by frequency.
 \end{enumerate}
 \smallskip
 
@@ -523,10 +525,6 @@ On the very bottom is a 1 line summary which shows you if there is a bad guy and
 \medskip
 
 \subsection{Sample output}
-
-\medskip
-
-%\begin{lstlisting}[numbers=none] %\textwidth
 
 ---- profile start ----\\
 1020 ticks 43 modules 81412 syms\\
@@ -596,4 +594,4 @@ On the very bottom is a 1 line summary which shows you if there is a bad guy and
 The summary line above in Bold represents the User time, System time, Real time and the percentage is how much Timer time elapsed over Real time so in this case the measurement covers 47.3\% of time. 
 \medskip
 
-So why use a Profiler? \ Because it is the ``ls'' for executable functions!!
+So why use a Profiler? Because it is the ``ls'' for executable functions!!

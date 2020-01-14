@@ -94,7 +94,7 @@ To recap, position is usually set in the program as a location that is between a
 Since some users prefer the insertion pointer to reflect the same as the Compositor a choice is available.  For playing forward, there is a preference option which results in what looks like 1 was added to the frame displayed in the Compositor window.  To enable this mode, check the box \texttt{Always show next frame}, and this will be saved to \texttt{.bcast5}.  The option checkbox is in the \texttt{Settings $\rightarrow$ Preferences $\rightarrow$ Appearance} tab and when checked, any forward \textit{plays} in the Compositor window show the same frame as you would with a seek.  Reverse plays and plays using a selection or In/Out pointers (with \texttt{Ctrl}) work the same as without this preference set.  But you will no longer see the odd behavior where if you frame advance forward and then frame advance backward, the displayed frame does not change -- instead it will change and look more natural.
 A color indicator that shows in the main track canvas timeline and the compositor timeline reminds the user which mode is currently active.  The cursor in the compositor turns \textit{red} for default mode and \textit{white} for \textit{Always show next frame} mode.  The top portion of the insertion cursor in the track canvas mirrors this, with red for default and white otherwise.
 
-Figure~\ref{fig:cursor01} using the default \textit{playing} method where the frame in the compositor is the one that was just played; in this case play was in the forward direction.  Note that the insertion pointer in the main track canvas shows 01:20 but the compositor show 01:19 so you know what you last saw.  Also, the cursor/cursor tops in both windows is red.\todo{I make copy/paste from your examples; but no arrow is displayed}
+Figure~\ref{fig:cursor01} using the default \textit{playing} method where the frame in the compositor is the one that was just played; in this case play was in the forward direction.  Note that the insertion pointer in the main track canvas shows 01:20 but the compositor show 01:19 so you know what you last saw.  Also, the cursor/cursor tops in both windows is red.
 
 \begin{figure}[htpb]
     \centering
@@ -102,7 +102,9 @@ Figure~\ref{fig:cursor01} using the default \textit{playing} method where the fr
     \begin{tikzpicture}[scale=1, transform shape]
     \node (img1) [yshift=0cm, xshift=0cm, rotate=0] {\includegraphics[width=0.6\linewidth]{images/cursor01.png}};    
     \node [yshift=-20mm, xshift=-1cm,anchor=east] at (img1.north west) (Compositor) {Red cursor in Compositor};
-    \node [yshift=-26mm, xshift=-1cm,anchor=east] at (img1.north west) (Timeline) {red cursor in Timeline};    
+    \node [yshift=-26mm, xshift=-1cm,anchor=east] at (img1.north west) (Timeline) {red cursor in Timeline};
+    \draw [->, line width=1mm] (Compositor) edge  ([yshift=-20mm] img1.north west);
+    \draw [->, line width=1mm] (Timeline) edge  ([yshift=-26mm] img1.north west);   
     \end{tikzpicture}    
     \caption{"Default" mode with red cursors}
     \label{fig:cursor01}
@@ -116,7 +118,9 @@ Figure~\ref{fig:cursor02} using the \textit{Always show next frame} method where
     \begin{tikzpicture}[scale=1, transform shape]
     \node (img1) [yshift=0cm, xshift=0cm, rotate=0] {\includegraphics[width=0.6\linewidth]{images/cursor02.png}};    
     \node [yshift=-21mm, xshift=-1cm,anchor=east] at (img1.north west) (Compositor) {White cursor in Compositor};
-    \node [yshift=-27mm, xshift=-1cm,anchor=east] at (img1.north west) (Timeline) {White cursor in Timeline};    
+    \node [yshift=-27mm, xshift=-1cm,anchor=east] at (img1.north west) (Timeline) {White cursor in Timeline};
+    \draw [->, line width=1mm] (Compositor) edge  ([yshift=-21mm] img1.north west);
+    \draw [->, line width=1mm] (Timeline) edge  ([yshift=-27mm] img1.north west);    
     \end{tikzpicture}    
     \caption{"Always show next frame" mode with white cursors}
     \label{fig:cursor02}
